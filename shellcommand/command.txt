@@ -1,0 +1,107 @@
+1. 目录操作
+    a)ls  --表示查看文件/目录
+    b)pwd --表示查看当前目录(的路径)
+    c)cd  --表示改变工作目录
+        常用：cd ../ 指跳转到上一级目录
+             备注[./]当前目录 [../]上一级目录
+        常用：cd /boot/ 指跳转到指定目录
+             备注指定目录一定是完整路径，如windows的文件路径一样
+    d)mkdir --表示创建目录
+        常用：mkdir test 指创建一个名为test的空文件夹
+    e)rm   --表示删除文件/目录
+        常用：rm -rf test 指删除目录文件夹test，并且把目录下的文件一并删除
+             备注直接使用命令[rm],只能删除空目录。 -r删除目录   -f强制删除文件或目录
+    f)mv   --表示移动文件/目录改名、移动
+        常用(移动文件)：mv 1.txt ./123 a mv 指目标文件 移动至某目录
+        常用(重命名文件)：mv 1.txt 123.txt a mv 指原文件 欲改后文件
+    g)In  --表示软连接和硬连接
+        常用(软连接)：In -s 123.sh ../a In -s 指源文件 欲放置路径
+             备注 如同window下的快捷方式，原理一致。In -s/root/桌面/共享文件夹/armQT//root/桌面
+        常用(硬连接)：In 123.sh ../a In  指源文件 欲放置路径
+             备注 复制一个文件，且该文件具有独立性，不受源文件删除的影响；
+                  无论源文件或目标文件的内容修改时，两份文件都会同步修改。
+    h)rmdir --删除空目录
+
+2.文件操作
+    a)cat  --表示查看文件内容，若文件不存在，则创建对应文件
+        常用：cat 1.txt
+    b)cp   --表示拷贝文件/目录
+        常用(备份)：cp 123.sh 1.sh à cp 源文件 目标文件
+        常用(复制至某路径)：cp 123.sh ../ à cp 源文件 目标路径
+    c)chmod --表示修改文件权限
+        常用：chmod 777 1.sh 指给1.sh最高权限
+            备注 读、写、运行三项权限可以用数字表示，就是r=4,w=2,x=1
+                 777就是rwxrwxrwx,意思是该登陆用户(可以用命令id查看)、他所在的组和其他人都有最高权限
+        一般模式：chmod +rw 1.sh 指仅当前用户下1.sh具有可读写权限
+    d)touch  --创建文件
+        常用：touch ./1.sh à touch 路径+名称
+    f)vim   --表示创建并打开文件
+        常用：vim ./1.sh à vim 路径+名称
+    g)find  --在指定目录查找符合条件的文件
+
+        常用：以[文件名+类型]寻找：find ./ -name “*.*”à find 路径 -nama “预找文件名+类型”
+            备注 寻找文件名为”123”的文件，*代表不限制类型
+                 find ./ ! -name “*.txt” à 过滤txt类型文件后，显示其他文件
+                 -name 区分大小写 -iname 不区分大小写 -o 连接符，作用如下图
+        常用：以[文件名]寻找：find ./ -path “*1*”à find 路径 - path “预找文件名”
+            备注 寻找文件名为”1”的所有文件；根据文件类型进行搜索：find . -type 类型参数
+    h)grep  --在文件里查找内容
+        常用(从指定文件里查找内容)：grep h ./file.txt à grep 内容 路径
+        常用(从缓存区里查找内容)：ps -ef | grep 5799 à 某显示命令 | grep 内容 指从进程列表中寻找带有”5799”的文本行
+    i)tar   --解压文件
+        常用(压缩)：
+            tar -cvf 1.tar *.* //将目录里所有文件打包成1.tar
+            rar a 1.rar *.* //rar格式的压缩
+            zip 1.zip *.* //zip格式的压缩
+        常用(解压)：
+            tar -xvf file.tar //解压tar包
+            tar -xzvf file.tar.gz //解压tar.gz
+            unrar e file.rar //解压rar
+            unzip file.zip //解压zip
+    j)file  --显示指定文件的类型
+
+3.用户系统及权限管理操作
+    a)su--用户类型切换：
+
+    b)adduser--添加用户：
+
+    c)passwd--设置（更改）用户口令：
+
+    d)usermod--设置用户属性：
+
+    e)ps--显示当前系统用户进程列表：
+
+    常用：ps -ef 显示当前系统所有用户的详细进程
+
+    -e 显示所有程序。 -f 显示UID,PPIP,C与STIME栏位
+
+    -A 显示所有程序。
+
+    f)kill--删除执行中的进程：
+
+    常用：kill 123 à kill pid号
+
+    强制结束进程: kill -9 123 à kill -9 pid号
+
+4.帮助命令
+    a)man   --查询命令阅读手册
+        常用：man kill à 查询有关[kill]的全部信息
+        常用：man 2 kill à 只查询第二条有关[kill]的信息
+    b)help  --查询命令阅读手册
+5.网络相关命令
+    a)ifconfig 查看网络信息，设置ip
+    b)ping 测试网络联网状态
+6.U盘操作相关命令
+    a)fdisk -l 识别usb存储设备
+    b)mount –t vfat /dev/sdb /mnt/udisk使用mount命令挂载U盘
+    c)umount /mnt/udisk 卸载U盘
+7.安装软件包命令
+    a)rpm
+        常用组合命令：
+        －ivh：安装显示安装进度--install--verbose--hash
+        －Uvh：升级软件包--Update；
+        －qpl： 列出RPM软件包内的文件信息[Query Package list]；
+        －qpi：列出RPM软件包的描述信息[Query Package install package(s)]；
+        －qf：查找指定文件属于哪个RPM软件包[Query File]；
+        －Va：校验所有的 RPM软件包，查找丢失的文件[View Lost]；
+        －e：删除包
